@@ -1009,6 +1009,17 @@
         justify-content: center;
         align-items: center;
         perspective: 1000px; /* Essential for 3D depth */
+
+        /* Initial State for Entrance Animation */
+        opacity: 0;
+        transform: translateY(50px);
+        transition: all 1s cubic-bezier(0.2, 0.8, 0.2, 1);
+      }
+
+      /* Trigger Class for Entrance */
+      .carousel-scene.animate-entrance {
+        opacity: 1;
+        transform: translateY(0);
       }
 
       /* The track that holds the absolute cards */
@@ -1892,7 +1903,7 @@
             </p>
           </div>
 
-          <div class="carousel-scene">
+          <div class="carousel-scene" id="pricingCarousel">
             <button class="nav-arrow left" onclick="moveCarousel(-1)">
               &#10094;
             </button>
@@ -1902,25 +1913,26 @@
                 <span class="line-1"></span><span class="line-2"></span
                 ><span class="line-3"></span><span class="line-4"></span>
                 <div class="card-top">
-                  <span class="tier-label">Starter</span>
+                  <span class="tier-label">Micro</span>
                   <div class="tier-price">
-                    <span class="currency">EGP</span>450<span class="period"
+                    <span class="currency">EGP</span>500<span class="period"
                       >/mo</span
                     >
                   </div>
                 </div>
                 <div class="card-specs">
                   <div class="spec-row">
-                    <span class="spec-dot"></span><strong>300 Orders</strong>
+                    <span class="spec-dot"></span
+                    ><strong>100 Confirmations</strong>
                   </div>
                   <div class="spec-row">
-                    <span class="spec-dot"></span>Basic Analytics
+                    <span class="spec-dot"></span>Full Dashboard Analytics
                   </div>
                   <div class="spec-row">
-                    <span class="spec-dot"></span>WhatsApp Sync
+                    <span class="spec-dot"></span>Auto Shipment Creation
                   </div>
                 </div>
-                <a href="checkout.html?plan=starter" class="btn-activate"
+                <a href="checkout.html?plan=micro" class="btn-activate"
                   >Initialize</a
                 >
               </div>
@@ -1929,25 +1941,26 @@
                 <span class="line-1"></span><span class="line-2"></span
                 ><span class="line-3"></span><span class="line-4"></span>
                 <div class="card-top">
-                  <span class="tier-label">Standard</span>
+                  <span class="tier-label">Starter</span>
                   <div class="tier-price">
-                    <span class="currency">EGP</span>850<span class="period"
+                    <span class="currency">EGP</span>1,200<span class="period"
                       >/mo</span
                     >
                   </div>
                 </div>
                 <div class="card-specs">
                   <div class="spec-row">
-                    <span class="spec-dot"></span><strong>800 Orders</strong>
+                    <span class="spec-dot"></span
+                    ><strong>300 Confirmations</strong>
                   </div>
                   <div class="spec-row">
-                    <span class="spec-dot"></span>Standard Metrics
+                    <span class="spec-dot"></span>Shopify & Woo Sync
                   </div>
                   <div class="spec-row">
-                    <span class="spec-dot"></span>Priority Support
+                    <span class="spec-dot"></span>Standard Support
                   </div>
                 </div>
-                <a href="checkout.html?plan=standard" class="btn-activate"
+                <a href="checkout.html?plan=starter" class="btn-activate"
                   >Initialize</a
                 >
               </div>
@@ -1956,25 +1969,26 @@
                 <span class="line-1"></span><span class="line-2"></span
                 ><span class="line-3"></span><span class="line-4"></span>
                 <div class="card-top">
-                  <span class="tier-label">Pro</span>
+                  <span class="tier-label">Growth</span>
                   <div class="tier-price">
-                    <span class="currency">EGP</span>1,500<span class="period"
+                    <span class="currency">EGP</span>2,100<span class="period"
                       >/mo</span
                     >
                   </div>
                 </div>
                 <div class="card-specs">
                   <div class="spec-row">
-                    <span class="spec-dot"></span><strong>2,000 Orders</strong>
+                    <span class="spec-dot"></span
+                    ><strong>600 Confirmations</strong>
                   </div>
                   <div class="spec-row">
-                    <span class="spec-dot"></span>Adv. Analytics
+                    <span class="spec-dot"></span>All Integrations
                   </div>
                   <div class="spec-row">
-                    <span class="spec-dot"></span>Cart Recovery
+                    <span class="spec-dot"></span>Priority Email
                   </div>
                 </div>
-                <a href="checkout.html?plan=pro" class="btn-activate"
+                <a href="checkout.html?plan=growth" class="btn-activate"
                   >Initialize</a
                 >
               </div>
@@ -1983,25 +1997,26 @@
                 <span class="line-1"></span><span class="line-2"></span
                 ><span class="line-3"></span><span class="line-4"></span>
                 <div class="card-top">
-                  <span class="tier-label">Advanced</span>
+                  <span class="tier-label">Pro</span>
                   <div class="tier-price">
-                    <span class="currency">EGP</span>2,800<span class="period"
+                    <span class="currency">EGP</span>3,200<span class="period"
                       >/mo</span
                     >
                   </div>
                 </div>
                 <div class="card-specs">
                   <div class="spec-row">
-                    <span class="spec-dot"></span><strong>5,000 Orders</strong>
+                    <span class="spec-dot"></span
+                    ><strong>1,000 Confirmations</strong>
                   </div>
                   <div class="spec-row">
-                    <span class="spec-dot"></span>3 Team Seats
+                    <span class="spec-dot"></span>Risk Analysis AI
                   </div>
                   <div class="spec-row">
-                    <span class="spec-dot"></span>Custom Templates
+                    <span class="spec-dot"></span>Priority Support
                   </div>
                 </div>
-                <a href="checkout.html?plan=advanced" class="btn-activate"
+                <a href="checkout.html?plan=pro" class="btn-activate"
                   >Initialize</a
                 >
               </div>
@@ -2010,25 +2025,26 @@
                 <span class="line-1"></span><span class="line-2"></span
                 ><span class="line-3"></span><span class="line-4"></span>
                 <div class="card-top">
-                  <span class="tier-label">Business</span>
+                  <span class="tier-label">Scale</span>
                   <div class="tier-price">
-                    <span class="currency">EGP</span>4,500<span class="period"
+                    <span class="currency">EGP</span>7,000<span class="period"
                       >/mo</span
                     >
                   </div>
                 </div>
                 <div class="card-specs">
                   <div class="spec-row">
-                    <span class="spec-dot"></span><strong>12,000 Orders</strong>
+                    <span class="spec-dot"></span
+                    ><strong>2,500 Confirmations</strong>
+                  </div>
+                  <div class="spec-row">
+                    <span class="spec-dot"></span>Dedicated Server
                   </div>
                   <div class="spec-row">
                     <span class="spec-dot"></span>Account Manager
                   </div>
-                  <div class="spec-row">
-                    <span class="spec-dot"></span>API Access
-                  </div>
                 </div>
-                <a href="checkout.html?plan=business" class="btn-activate"
+                <a href="checkout.html?plan=scale" class="btn-activate"
                   >Initialize</a
                 >
               </div>
@@ -2038,20 +2054,18 @@
                 ><span class="line-3"></span><span class="line-4"></span>
                 <div class="card-top">
                   <span class="tier-label">Enterprise</span>
-                  <div class="tier-price">
-                    <span class="currency">EGP</span>Custom
-                  </div>
+                  <div class="tier-price">Contact Us</div>
                 </div>
                 <div class="card-specs">
                   <div class="spec-row">
                     <span class="spec-dot"></span
-                    ><strong>Unlimited Orders</strong>
+                    ><strong>5,000+ Confirmations</strong>
                   </div>
                   <div class="spec-row">
-                    <span class="spec-dot"></span>White Labeling
+                    <span class="spec-dot"></span>Custom Integrations
                   </div>
                   <div class="spec-row">
-                    <span class="spec-dot"></span>24/7 Priority
+                    <span class="spec-dot"></span>24/7 SLA Support
                   </div>
                 </div>
                 <a href="mailto:sales@confirmit.com" class="btn-activate"
@@ -2345,6 +2359,24 @@
 
       // Initialize
       updateCarousel();
+
+      // --- CAROUSEL ENTRANCE ANIMATION ---
+      const pricingSection = document.getElementById("pricing");
+      const carouselScene = document.getElementById("pricingCarousel");
+
+      const carouselObserver = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              carouselScene.classList.add("animate-entrance");
+              carouselObserver.unobserve(entry.target);
+            }
+          });
+        },
+        { threshold: 0.3 }
+      ); // Trigger when 30% visible
+
+      carouselObserver.observe(pricingSection);
     </script>
   </body>
 </html>
