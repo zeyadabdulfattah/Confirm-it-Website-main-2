@@ -69,6 +69,11 @@
         list-style: none;
       }
 
+      button {
+        cursor: pointer;
+        font-family: inherit;
+      }
+
       /* --- 2. Reusable Components --- */
 
       .container {
@@ -987,45 +992,87 @@
         color: var(--brand-dark);
       }
 
-      /* --- 8. NEW PRICING GRID SYSTEM (6 BUNDLES) --- */
+      /* --- 8. NEW 3D CAROUSEL PRICING --- */
       .pricing-section {
-        padding: 100px 20px;
-        background-color: var(--brand-dark); /* Falls back to global dark */
+        padding: 100px 0;
+        background-color: var(--brand-dark);
+        overflow: hidden;
+      }
+
+      /* 3D Scene Wrapper */
+      .carousel-scene {
         position: relative;
+        max-width: 1200px;
+        margin: 60px auto 0;
+        height: 500px; /* Container height for card display */
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        perspective: 1000px; /* Essential for 3D depth */
       }
 
-      .pricing-grid {
-        display: grid;
-        grid-template-columns: 1fr; /* Mobile: 1 column */
-        gap: 20px;
-        max-width: 1100px;
-        margin: 0 auto;
+      /* The track that holds the absolute cards */
+      .carousel-track {
+        position: relative;
+        width: 340px; /* Card Width */
+        height: 480px; /* Card Height */
+        transform-style: preserve-3d;
       }
 
-      /* Tablet: 2 Columns */
-      @media (min-width: 768px) {
-        .pricing-grid {
-          grid-template-columns: repeat(2, 1fr);
+      /* Navigation Arrows */
+      .nav-arrow {
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        background: rgba(255, 255, 255, 0.05);
+        border: 1px solid #333;
+        color: var(--brand-green);
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        z-index: 50;
+        font-size: 1.5rem;
+        transition: all 0.3s ease;
+      }
+
+      .nav-arrow:hover {
+        background: var(--brand-green);
+        color: #fff;
+        box-shadow: 0 0 15px var(--brand-green);
+      }
+
+      .nav-arrow.left {
+        left: 20px;
+      }
+      .nav-arrow.right {
+        right: 20px;
+      }
+
+      @media (max-width: 768px) {
+        .nav-arrow.left {
+          left: 10px;
+        }
+        .nav-arrow.right {
+          right: 10px;
         }
       }
 
-      /* Desktop: 3 Columns */
-      @media (min-width: 1024px) {
-        .pricing-grid {
-          grid-template-columns: repeat(3, 1fr);
-        }
-      }
-
+      /* THE CARDS (Reusing your "Snake Border" style) */
       .pricing-card {
+        position: absolute;
+        width: 100%;
+        height: 100%;
         background: #181818;
         border: 1px solid #333;
         padding: 30px;
         display: flex;
         flex-direction: column;
         justify-content: space-between;
-        transition: all 0.3s ease;
-        position: relative;
-        /* Tech Cut Corner effect */
+        transition: all 0.6s cubic-bezier(0.25, 0.8, 0.25, 1);
         clip-path: polygon(
           0 0,
           100% 0,
@@ -1033,44 +1080,91 @@
           calc(100% - 15px) 100%,
           0 100%
         );
+        /* Start hidden/inactive */
+        opacity: 0;
+        pointer-events: none;
       }
 
-      .pricing-card:hover {
-        border-color: var(--brand-green);
-        transform: translateY(-5px);
-        box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.5);
+      /* Active State (Center) */
+      .pricing-card.active {
+        opacity: 1;
+        pointer-events: auto;
+        z-index: 10;
+        transform: translateX(0) scale(1) rotateY(0deg);
+        box-shadow: 0 20px 50px -10px rgba(0, 0, 0, 0.5);
       }
 
-      /* Recommended Tier Styling */
-      .pricing-card.recommended {
-        border-color: var(--brand-green);
-        background: linear-gradient(
-          180deg,
-          rgba(39, 174, 96, 0.08) 0%,
-          #181818 100%
-        );
+      /* Previous State (Left Side - 3D Tilted) */
+      .pricing-card.prev {
+        opacity: 0.4;
+        z-index: 5;
+        transform: translateX(-110%) scale(0.85) rotateY(25deg);
+        filter: blur(2px);
       }
 
-      .rec-badge {
+      /* Next State (Right Side - 3D Tilted) */
+      .pricing-card.next {
+        opacity: 0.4;
+        z-index: 5;
+        transform: translateX(110%) scale(0.85) rotateY(-25deg);
+        filter: blur(2px);
+      }
+
+      /* --- Snake Border & Dot Styles (Same as before) --- */
+      .pricing-card span.line-1,
+      .pricing-card span.line-2,
+      .pricing-card span.line-3,
+      .pricing-card span.line-4 {
         position: absolute;
+        background: var(--brand-green);
+        transition: all 0.4s ease-in-out;
+      }
+      .pricing-card span.line-1 {
+        top: 0;
+        left: 0;
+        width: 0;
+        height: 2px;
+      }
+      .pricing-card span.line-2 {
         top: 0;
         right: 0;
-        background: var(--brand-green);
-        color: #000;
-        font-family: var(--font-nav);
-        font-size: 0.65rem;
-        font-weight: 700;
-        padding: 4px 10px;
-        letter-spacing: 1px;
+        width: 2px;
+        height: 0;
+        transition-delay: 0.1s;
+      }
+      .pricing-card span.line-3 {
+        bottom: 0;
+        right: 0;
+        width: 0;
+        height: 2px;
+        transition-delay: 0.2s;
+      }
+      .pricing-card span.line-4 {
+        bottom: 0;
+        left: 0;
+        width: 2px;
+        height: 0;
+        transition-delay: 0.3s;
       }
 
-      /* Content Typography */
+      .pricing-card:hover span.line-1 {
+        width: 100%;
+      }
+      .pricing-card:hover span.line-2 {
+        height: 100%;
+      }
+      .pricing-card:hover span.line-3 {
+        width: 100%;
+      }
+      .pricing-card:hover span.line-4 {
+        height: 100%;
+      }
+
       .card-top {
         margin-bottom: 25px;
         border-bottom: 1px solid #333;
         padding-bottom: 20px;
       }
-
       .tier-label {
         display: block;
         font-family: var(--font-nav);
@@ -1080,7 +1174,6 @@
         letter-spacing: 2px;
         margin-bottom: 5px;
       }
-
       .tier-price {
         font-family: var(--font-main);
         font-size: 2rem;
@@ -1090,25 +1183,20 @@
         align-items: baseline;
         gap: 4px;
       }
-
       .tier-price .currency {
         font-size: 1rem;
         color: var(--brand-green);
         font-weight: 400;
       }
-
       .tier-price .period {
         font-size: 0.9rem;
         color: #666;
         font-weight: 400;
       }
 
-      /* Specs / Features */
       .card-specs {
         flex-grow: 1;
-        margin-bottom: 30px;
       }
-
       .spec-row {
         display: flex;
         align-items: center;
@@ -1118,24 +1206,19 @@
         font-size: 0.95rem;
         margin-bottom: 12px;
       }
-
-      /* Status Dots (The "System" look) */
       .spec-dot {
         width: 6px;
         height: 6px;
         background: #333;
         border-radius: 50%;
         box-shadow: 0 0 0 1px #444;
+        transition: all 0.4s ease;
       }
-
-      .spec-dot.active,
-      .pricing-card:hover .spec-dot {
+      .pricing-card.active:hover .spec-dot {
         background: var(--brand-green);
-        box-shadow: 0 0 5px var(--brand-green);
-        transition: 0.3s;
+        box-shadow: 0 0 6px var(--brand-green);
       }
 
-      /* Buttons */
       .btn-activate {
         display: block;
         text-align: center;
@@ -1148,24 +1231,13 @@
         text-transform: uppercase;
         letter-spacing: 1px;
         transition: 0.2s;
+        z-index: 5;
+        position: relative;
       }
-
       .btn-activate:hover {
         background: #fff;
         color: #000;
         border-color: #fff;
-      }
-
-      .btn-glow {
-        background: var(--brand-green);
-        border-color: var(--brand-green);
-        color: #fff;
-      }
-
-      .btn-glow:hover {
-        background: var(--brand-green-bright);
-        border-color: var(--brand-green-bright);
-        color: #fff;
       }
 
       /* --- 9. Final CTA Section --- */
@@ -1316,10 +1388,6 @@
           /* 4 Columns */
           grid-template-columns: repeat(4, minmax(0, 1fr));
         }
-
-        /* (OLD PRICING MEDIA QUERY REMOVED HERE TO PREVENT CONFLICT) 
-           New pricing grid media queries are self-contained in Section 8.
-        */
       }
 
       /* Large screens (lg: 1024px) */
@@ -1360,9 +1428,8 @@
           font-size: 3.25rem;
         }
 
-        /* --- HOW IT WORKS UPDATES START HERE --- */
+        /* --- HOW IT WORKS UPDATES --- */
 
-        /* Show the lines and dots on desktop */
         .timeline-line-bg,
         .timeline-line-fill,
         .timeline-dot {
@@ -1373,7 +1440,6 @@
           gap: 0rem;
         }
 
-        /* General horizontal layout for steps */
         .how-it-works-step {
           flex-direction: row;
           gap: 5rem;
@@ -1381,13 +1447,10 @@
           text-align: left;
         }
 
-        /* ZIGZAG PATTERN */
-        /* Even steps: Row Reverse (Image Left, Text Right) */
         .how-it-works-step:nth-child(even) {
           flex-direction: row-reverse;
         }
 
-        /* Align Text properly for Zigzag */
         .how-it-works-text {
           text-align: left;
           align-items: flex-start;
@@ -1399,22 +1462,19 @@
           margin-right: 0;
         }
 
-        /* --- FEATURES SECTION DESKTOP UPDATES (IMAGE LIFTED) --- */
+        /* --- FEATURES SECTION DESKTOP --- */
 
         .features-split-layout {
           flex-direction: row;
           gap: 2rem;
-
-          /* 1. RESET TO FLEX-START to enable offsets */
           align-items: flex-start;
         }
 
-        /* 2. PUSH TEXT DOWN */
         .features-text-content {
           flex: 0.8;
           text-align: left;
           max-width: 40%;
-          padding-top: 6rem; /* Push text down to center screen level */
+          padding-top: 6rem;
         }
 
         .features-list {
@@ -1422,22 +1482,16 @@
           margin-right: 0;
         }
 
-        /* 3. PULL IMAGE UP */
         .features-visual {
           flex: 1.6;
           width: 100%;
-          margin-top: -8rem; /* Physically lift image container */
+          margin-top: -8rem;
         }
 
         .dashboard-console {
-          /* Force Flat (No tilt) */
           transform: none;
           width: 100%;
         }
-
-        /* (OLD 4-COLUMN PRICING QUERY REMOVED HERE) 
-           The new grid handles its own 3-column layout in Section 8.
-        */
       }
     </style>
   </head>
@@ -1829,164 +1883,186 @@
 
       <section id="pricing" class="pricing-section">
         <div class="container">
-          <div class="section-header text-center" style="margin-bottom: 60px">
+          <div class="section-header text-center">
             <h2 class="section-title">
-              System <span class="highlight-brand">Capacity</span>
+              Select Your <span class="highlight-brand">Capacity</span>
             </h2>
             <p class="section-subtitle">
-              Select the automation power required for your operation volume.
+              Swipe to find the plan that fits your volume.
             </p>
           </div>
 
-          <div class="pricing-grid">
-            <div class="pricing-card">
-              <div class="card-top">
-                <span class="tier-label">Starter</span>
-                <div class="tier-price">
-                  <span class="currency">EGP</span>450<span class="period"
-                    >/mo</span
-                  >
+          <div class="carousel-scene">
+            <button class="nav-arrow left" onclick="moveCarousel(-1)">
+              &#10094;
+            </button>
+
+            <div class="carousel-track" id="carouselTrack">
+              <div class="pricing-card" data-index="0">
+                <span class="line-1"></span><span class="line-2"></span
+                ><span class="line-3"></span><span class="line-4"></span>
+                <div class="card-top">
+                  <span class="tier-label">Starter</span>
+                  <div class="tier-price">
+                    <span class="currency">EGP</span>450<span class="period"
+                      >/mo</span
+                    >
+                  </div>
                 </div>
+                <div class="card-specs">
+                  <div class="spec-row">
+                    <span class="spec-dot"></span><strong>300 Orders</strong>
+                  </div>
+                  <div class="spec-row">
+                    <span class="spec-dot"></span>Basic Analytics
+                  </div>
+                  <div class="spec-row">
+                    <span class="spec-dot"></span>WhatsApp Sync
+                  </div>
+                </div>
+                <a href="checkout.html?plan=starter" class="btn-activate"
+                  >Initialize</a
+                >
               </div>
-              <div class="card-specs">
-                <div class="spec-row">
-                  <span class="spec-dot"></span>300 Orders
+
+              <div class="pricing-card" data-index="1">
+                <span class="line-1"></span><span class="line-2"></span
+                ><span class="line-3"></span><span class="line-4"></span>
+                <div class="card-top">
+                  <span class="tier-label">Standard</span>
+                  <div class="tier-price">
+                    <span class="currency">EGP</span>850<span class="period"
+                      >/mo</span
+                    >
+                  </div>
                 </div>
-                <div class="spec-row">
-                  <span class="spec-dot"></span>Basic Analytics
+                <div class="card-specs">
+                  <div class="spec-row">
+                    <span class="spec-dot"></span><strong>800 Orders</strong>
+                  </div>
+                  <div class="spec-row">
+                    <span class="spec-dot"></span>Standard Metrics
+                  </div>
+                  <div class="spec-row">
+                    <span class="spec-dot"></span>Priority Support
+                  </div>
                 </div>
-                <div class="spec-row">
-                  <span class="spec-dot"></span>WhatsApp Sync
-                </div>
+                <a href="checkout.html?plan=standard" class="btn-activate"
+                  >Initialize</a
+                >
               </div>
-              <a href="checkout.html?plan=starter" class="btn-activate"
-                >Initialize</a
-              >
+
+              <div class="pricing-card" data-index="2">
+                <span class="line-1"></span><span class="line-2"></span
+                ><span class="line-3"></span><span class="line-4"></span>
+                <div class="card-top">
+                  <span class="tier-label">Pro</span>
+                  <div class="tier-price">
+                    <span class="currency">EGP</span>1,500<span class="period"
+                      >/mo</span
+                    >
+                  </div>
+                </div>
+                <div class="card-specs">
+                  <div class="spec-row">
+                    <span class="spec-dot"></span><strong>2,000 Orders</strong>
+                  </div>
+                  <div class="spec-row">
+                    <span class="spec-dot"></span>Adv. Analytics
+                  </div>
+                  <div class="spec-row">
+                    <span class="spec-dot"></span>Cart Recovery
+                  </div>
+                </div>
+                <a href="checkout.html?plan=pro" class="btn-activate"
+                  >Initialize</a
+                >
+              </div>
+
+              <div class="pricing-card" data-index="3">
+                <span class="line-1"></span><span class="line-2"></span
+                ><span class="line-3"></span><span class="line-4"></span>
+                <div class="card-top">
+                  <span class="tier-label">Advanced</span>
+                  <div class="tier-price">
+                    <span class="currency">EGP</span>2,800<span class="period"
+                      >/mo</span
+                    >
+                  </div>
+                </div>
+                <div class="card-specs">
+                  <div class="spec-row">
+                    <span class="spec-dot"></span><strong>5,000 Orders</strong>
+                  </div>
+                  <div class="spec-row">
+                    <span class="spec-dot"></span>3 Team Seats
+                  </div>
+                  <div class="spec-row">
+                    <span class="spec-dot"></span>Custom Templates
+                  </div>
+                </div>
+                <a href="checkout.html?plan=advanced" class="btn-activate"
+                  >Initialize</a
+                >
+              </div>
+
+              <div class="pricing-card" data-index="4">
+                <span class="line-1"></span><span class="line-2"></span
+                ><span class="line-3"></span><span class="line-4"></span>
+                <div class="card-top">
+                  <span class="tier-label">Business</span>
+                  <div class="tier-price">
+                    <span class="currency">EGP</span>4,500<span class="period"
+                      >/mo</span
+                    >
+                  </div>
+                </div>
+                <div class="card-specs">
+                  <div class="spec-row">
+                    <span class="spec-dot"></span><strong>12,000 Orders</strong>
+                  </div>
+                  <div class="spec-row">
+                    <span class="spec-dot"></span>Account Manager
+                  </div>
+                  <div class="spec-row">
+                    <span class="spec-dot"></span>API Access
+                  </div>
+                </div>
+                <a href="checkout.html?plan=business" class="btn-activate"
+                  >Initialize</a
+                >
+              </div>
+
+              <div class="pricing-card" data-index="5">
+                <span class="line-1"></span><span class="line-2"></span
+                ><span class="line-3"></span><span class="line-4"></span>
+                <div class="card-top">
+                  <span class="tier-label">Enterprise</span>
+                  <div class="tier-price">
+                    <span class="currency">EGP</span>Custom
+                  </div>
+                </div>
+                <div class="card-specs">
+                  <div class="spec-row">
+                    <span class="spec-dot"></span
+                    ><strong>Unlimited Orders</strong>
+                  </div>
+                  <div class="spec-row">
+                    <span class="spec-dot"></span>White Labeling
+                  </div>
+                  <div class="spec-row">
+                    <span class="spec-dot"></span>24/7 Priority
+                  </div>
+                </div>
+                <a href="mailto:sales@confirmit.com" class="btn-activate"
+                  >Contact Sales</a
+                >
+              </div>
             </div>
 
-            <div class="pricing-card">
-              <div class="card-top">
-                <span class="tier-label">Standard</span>
-                <div class="tier-price">
-                  <span class="currency">EGP</span>850<span class="period"
-                    >/mo</span
-                  >
-                </div>
-              </div>
-              <div class="card-specs">
-                <div class="spec-row">
-                  <span class="spec-dot active"></span>800 Orders
-                </div>
-                <div class="spec-row">
-                  <span class="spec-dot active"></span>Standard Metrics
-                </div>
-                <div class="spec-row">
-                  <span class="spec-dot active"></span>Priority Support
-                </div>
-              </div>
-              <a href="checkout.html?plan=standard" class="btn-activate"
-                >Initialize</a
-              >
-            </div>
-
-            <div class="pricing-card recommended">
-              <div class="rec-badge">RECOMMENDED</div>
-              <div class="card-top">
-                <span class="tier-label">Pro</span>
-                <div class="tier-price">
-                  <span class="currency">EGP</span>1,500<span class="period"
-                    >/mo</span
-                  >
-                </div>
-              </div>
-              <div class="card-specs">
-                <div class="spec-row">
-                  <span class="spec-dot active"></span>2,000 Orders
-                </div>
-                <div class="spec-row">
-                  <span class="spec-dot active"></span>Adv. Analytics
-                </div>
-                <div class="spec-row">
-                  <span class="spec-dot active"></span>Cart Recovery
-                </div>
-              </div>
-              <a href="checkout.html?plan=pro" class="btn-activate btn-glow"
-                >Initialize</a
-              >
-            </div>
-
-            <div class="pricing-card">
-              <div class="card-top">
-                <span class="tier-label">Advanced</span>
-                <div class="tier-price">
-                  <span class="currency">EGP</span>2,800<span class="period"
-                    >/mo</span
-                  >
-                </div>
-              </div>
-              <div class="card-specs">
-                <div class="spec-row">
-                  <span class="spec-dot active"></span>5,000 Orders
-                </div>
-                <div class="spec-row">
-                  <span class="spec-dot active"></span>3 Team Seats
-                </div>
-                <div class="spec-row">
-                  <span class="spec-dot active"></span>Custom Templates
-                </div>
-              </div>
-              <a href="checkout.html?plan=advanced" class="btn-activate"
-                >Initialize</a
-              >
-            </div>
-
-            <div class="pricing-card">
-              <div class="card-top">
-                <span class="tier-label">Business</span>
-                <div class="tier-price">
-                  <span class="currency">EGP</span>4,500<span class="period"
-                    >/mo</span
-                  >
-                </div>
-              </div>
-              <div class="card-specs">
-                <div class="spec-row">
-                  <span class="spec-dot active"></span>12,000 Orders
-                </div>
-                <div class="spec-row">
-                  <span class="spec-dot active"></span>Account Manager
-                </div>
-                <div class="spec-row">
-                  <span class="spec-dot active"></span>API Access
-                </div>
-              </div>
-              <a href="checkout.html?plan=business" class="btn-activate"
-                >Initialize</a
-              >
-            </div>
-
-            <div class="pricing-card">
-              <div class="card-top">
-                <span class="tier-label">Enterprise</span>
-                <div class="tier-price">
-                  <span class="currency">EGP</span>Custom
-                </div>
-              </div>
-              <div class="card-specs">
-                <div class="spec-row">
-                  <span class="spec-dot active"></span>Unlimited Orders
-                </div>
-                <div class="spec-row">
-                  <span class="spec-dot active"></span>White Labeling
-                </div>
-                <div class="spec-row">
-                  <span class="spec-dot active"></span>24/7 Priority
-                </div>
-              </div>
-              <a href="mailto:sales@confirmit.com" class="btn-activate"
-                >Contact Sales</a
-              >
-            </div>
+            <button class="nav-arrow right" onclick="moveCarousel(1)">
+              &#10095;
+            </button>
           </div>
         </div>
       </section>
@@ -2234,6 +2310,41 @@
           }
         }
       });
+
+      // --- CAROUSEL LOGIC ---
+      let activeIndex = 0; // Start at first item
+      const cards = document.querySelectorAll(".pricing-card");
+      const totalCards = cards.length;
+
+      function updateCarousel() {
+        cards.forEach((card, index) => {
+          // Reset Classes
+          card.classList.remove("active", "prev", "next");
+
+          // Logic for Active
+          if (index === activeIndex) {
+            card.classList.add("active");
+          }
+          // Logic for Prev (Looping)
+          else if (index === (activeIndex - 1 + totalCards) % totalCards) {
+            card.classList.add("prev");
+          }
+          // Logic for Next (Looping)
+          else if (index === (activeIndex + 1) % totalCards) {
+            card.classList.add("next");
+          }
+          // All others remain hidden (opacity 0 via CSS)
+        });
+      }
+
+      function moveCarousel(direction) {
+        // Update Index
+        activeIndex = (activeIndex + direction + totalCards) % totalCards;
+        updateCarousel();
+      }
+
+      // Initialize
+      updateCarousel();
     </script>
   </body>
 </html>
