@@ -731,7 +731,7 @@
         padding-top: 0rem !important;
         padding-bottom: 5rem;
         overflow: hidden;
-        /* THIN DIVIDER AS REQUESTED */
+        /* THIN DIVIDER */
         border-bottom: 1px solid rgba(255, 255, 255, 0.1);
       }
 
@@ -739,7 +739,6 @@
         display: flex;
         flex-direction: column;
         align-items: center;
-        /* REDUCED VERTICAL SPACE */
         gap: 2rem;
         margin-bottom: 2rem;
       }
@@ -766,7 +765,6 @@
         font-size: 2.25rem;
         font-weight: 700;
         color: white;
-        /* INCREASED MARGIN TO PUSH TEXT AWAY */
         margin-bottom: 3rem;
         line-height: 1.2;
       }
@@ -831,7 +829,6 @@
         height: auto;
         display: block;
         border-radius: 12px;
-        /* REMOVED SHADOW AND BORDER */
         box-shadow: none;
         border: none;
       }
@@ -847,7 +844,7 @@
         justify-content: center;
       }
 
-      /* Floating Badge on Tablet */
+      /* Floating Badge */
       .float-card {
         position: absolute;
         top: 20%;
@@ -899,7 +896,7 @@
         filter: blur(60px);
       }
 
-      /* --- CREATIVE CTA SECTION (NEW SHARP STYLE) --- */
+      /* --- SHARP PROFESSIONAL CTA (Centered) --- */
       .features-cta-wrapper {
         text-align: center;
         margin-top: 4rem;
@@ -920,8 +917,7 @@
         text-transform: uppercase;
         letter-spacing: 1px;
         font-size: 0.95rem;
-        /* SHARP EDGES */
-        border-radius: 2px;
+        border-radius: 4px; /* Sharp professional radius */
         transition: all 0.2s ease;
         box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
         text-decoration: none;
@@ -1225,7 +1221,7 @@
         border-color: #fff;
       }
 
-      /* --- 9. Final CTA Section (ENHANCED) --- */
+      /* --- 9. Final CTA Section (RESTORED) --- */
       .cta-section {
         padding-top: 5rem;
         padding-bottom: 5rem;
@@ -1236,31 +1232,22 @@
         isolation: isolate;
         overflow: hidden;
         border-radius: 1rem;
-
-        /* NEW PREMIUM GRADIENT BG */
-        background: radial-gradient(circle at center, #1a1a1a 0%, #0a0a0a 100%);
-        border: 1px solid rgba(255, 255, 255, 0.05);
-
-        padding: 6rem 2rem;
+        border: 1px solid var(--brand-border);
+        background-color: var(--brand-card);
+        padding: 5rem 1.5rem;
         text-align: center;
-        box-shadow: 0 20px 40px -10px rgba(0, 0, 0, 0.5);
-      }
-
-      .cta-box .section-title {
-        font-size: 2.5rem;
-        margin-bottom: 1.5rem;
+        box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1),
+          0 4px 6px -2px rgba(0, 0, 0, 0.05);
       }
 
       .cta-box .section-subtitle {
         margin-left: auto;
         margin-right: auto;
         max-width: 42rem;
-        color: #bbb;
-        font-size: 1.2rem;
       }
 
       .cta-buttons {
-        margin-top: 3rem;
+        margin-top: 2.5rem;
         display: flex;
         align-items: center;
         justify-content: center;
@@ -1271,14 +1258,14 @@
         position: absolute;
         left: 50%;
         top: 50%;
-        transform: translate(-50%, -50%);
+        transform: translateX(-50%);
         z-index: -10;
-        height: 80rem;
-        width: 80rem;
-        opacity: 0.4; /* Slightly more visible */
+        height: 64rem;
+        width: 64rem;
       }
       .cta-glow circle {
         fill: url(#gradient-glow);
+        opacity: 0.3;
       }
 
       /* --- 10. Footer --- */
@@ -1404,14 +1391,14 @@
         /* --- FEATURES SECTION DESKTOP --- */
         .features-row {
           flex-direction: row;
-          gap: 4rem; /* Desktop gap */
+          gap: 4rem;
         }
 
         /* Row 1: Text Left (50%), Image Right (50%) */
         .features-row > .features-text-content {
           flex: 1;
           order: 1;
-          padding-top: 5rem; /* Add this back! */
+          padding-top: 5rem;
         }
         .features-row > .features-visual {
           flex: 1;
@@ -1435,6 +1422,11 @@
         }
         .tablet-tilt:hover {
           transform: perspective(1000px) rotateY(0deg) scale(1.02);
+        }
+
+        /* Footer Grid */
+        .footer-grid {
+          grid-template-columns: repeat(4, minmax(0, 1fr));
         }
       }
     </style>
