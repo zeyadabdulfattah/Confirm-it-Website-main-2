@@ -42,6 +42,8 @@
 
       html {
         scroll-behavior: smooth;
+        overflow-x: hidden; /* Critical for mobile scroll fix */
+        width: 100%;
       }
 
       body {
@@ -50,7 +52,9 @@
         color: var(--brand-text);
         -webkit-font-smoothing: antialiased;
         -moz-osx-font-smoothing: grayscale;
-        overflow-x: hidden;
+        overflow-x: hidden; /* Critical for mobile scroll fix */
+        width: 100%;
+        position: relative;
       }
 
       img,
@@ -155,11 +159,13 @@
         justify-content: space-between;
         width: 100%;
         max-width: 1400px;
-        margin-left: 60px;
-        margin-right: auto;
+        /* MOBILE FIX: Hard reset margins */
+        margin-left: 0;
+        margin-right: 0;
+
         padding-top: 1rem;
         padding-bottom: 1rem;
-        padding-left: 0;
+        padding-left: 1.5rem;
         padding-right: 1.5rem;
       }
 
@@ -170,7 +176,7 @@
       }
 
       .brand-logo {
-        width: 210px;
+        width: 160px; /* Slightly smaller for mobile safety */
         height: auto;
       }
 
@@ -354,8 +360,6 @@
         margin-right: auto;
         text-align: center;
         flex-shrink: 0;
-
-        /* Apply Left-to-Right Animation */
         opacity: 0;
         animation: slideInLeft 1s ease-out forwards;
       }
@@ -377,7 +381,7 @@
         color: var(--brand-text-grey);
       }
 
-      /* --- NEW CREATIVE HIGHLIGHT STYLE --- */
+      /* Highlight Style */
       .highlight-brand {
         position: relative;
         display: inline-block;
@@ -389,10 +393,10 @@
       .highlight-brand::before {
         content: "";
         position: absolute;
-        inset: -2px -6px; /* Expand highlight slightly */
+        inset: -2px -6px;
         background: var(--brand-green);
         opacity: 0.25;
-        transform: rotate(-2deg); /* Creative Tilt */
+        transform: rotate(-2deg);
         border-radius: 4px;
         z-index: -1;
       }
@@ -408,8 +412,6 @@
       .hero-video-wrapper {
         margin-top: 0;
         width: 100%;
-
-        /* Apply Right-to-Left Animation */
         opacity: 0;
         animation: slideInRight 1s ease-out forwards;
         animation-delay: 0.2s;
@@ -498,7 +500,6 @@
       }
 
       /* --- THE MOVING BEAM --- */
-
       .timeline-line-bg {
         position: absolute;
         top: 2rem;
@@ -514,17 +515,10 @@
         position: absolute;
         left: 50%;
         transform: translateX(-50%);
-
-        /* Fixed Height */
         height: 200px;
         width: 2px;
-
-        /* Initial Top */
         top: 0;
-
         display: none;
-
-        /* Gradient for Beam Effect */
         background: linear-gradient(
           to bottom,
           rgba(0, 0, 0, 0) 0%,
@@ -532,7 +526,6 @@
           var(--brand-green-bright) 100%
         );
         box-shadow: 0 10px 20px -2px var(--brand-green-bright);
-
         transition: top 0.1s linear;
         z-index: 1;
         border-radius: 100px;
@@ -559,7 +552,6 @@
         box-shadow: 0 0 15px var(--brand-green);
         transform: translateX(-50%) scale(1.4);
       }
-      /* --- THE MOVING BEAM END --- */
 
       .how-it-works-step {
         display: flex;
@@ -580,7 +572,6 @@
         z-index: 3;
       }
 
-      /* --- IMAGE FADE-IN ANIMATION START --- */
       .how-it-works-image-wrapper {
         flex-basis: 50%;
         flex-shrink: 0;
@@ -591,8 +582,6 @@
         background: transparent;
         border: none;
         z-index: 3;
-
-        /* Hidden State */
         opacity: 0;
         transform: translateX(50px);
         transition: opacity 1.2s ease-out, transform 1.2s ease-out;
@@ -602,12 +591,10 @@
         transform: translateX(-50px);
       }
 
-      /* Visible State (Applied via JS) */
       .how-it-works-image-wrapper.img-visible {
         opacity: 1;
         transform: translateX(0) !important;
       }
-      /* --- IMAGE FADE-IN ANIMATION END --- */
 
       .how-it-works-image-wrapper img {
         width: 100%;
@@ -658,7 +645,6 @@
         color: var(--brand-text-grey);
       }
 
-      /* Active State for the Step Text */
       .how-it-works-step.active-step .how-it-works-text h3 {
         color: var(--brand-green);
         transform: scale(1.1);
@@ -697,7 +683,6 @@
       .integrations-row-1 {
         gap: 6.5rem;
       }
-
       .integrations-row-2 {
         gap: 2.5rem;
       }
@@ -708,7 +693,7 @@
           transform: scale(0.8);
         }
         60% {
-          transform: scale(1.05); /* Slight bounce */
+          transform: scale(1.05);
         }
         100% {
           opacity: 1;
@@ -734,10 +719,6 @@
         opacity: 0.6 !important;
       }
 
-      .integrations-grid .logo-bosta {
-      }
-      .integrations-grid .logo-khazenly {
-      }
       .integrations-grid .logo-aramex {
         width: 220px;
       }
@@ -746,12 +727,9 @@
         width: 400px;
         max-height: 90px;
       }
-      .integrations-grid .logo-woocommerce {
-      }
 
-      /* --- 7. Features Section (SPLIT LAYOUT - FIXED DROP DOWN) --- */
+      /* --- 7. Features Section --- */
       .features-section {
-        /* 1. Reduce section padding to remove top dead space */
         padding-top: 0rem !important;
         padding-bottom: 5rem;
       }
@@ -771,18 +749,14 @@
         align-items: center;
       }
 
-      /* Left Side: Text Content */
       .features-text-content {
         width: 100%;
-        text-align: center; /* Mobile default */
-
-        /* Initial Hidden State for Animation */
+        text-align: center;
         opacity: 0;
-        transform: translateX(-50px); /* Fade in from Left */
+        transform: translateX(-50px);
         transition: opacity 1.2s ease-out, transform 1.2s ease-out;
       }
 
-      /* Active State for Text */
       .features-text-content.animate-in {
         opacity: 1;
         transform: translateX(0);
@@ -803,7 +777,6 @@
         margin-bottom: 2rem;
       }
 
-      /* Feature List */
       .features-list {
         display: flex;
         flex-direction: column;
@@ -830,18 +803,14 @@
         flex-shrink: 0;
       }
 
-      /* Right Side: Dashboard Visual */
       .features-visual {
         width: 100%;
         position: relative;
-
-        /* Initial Hidden State for Animation */
         opacity: 0;
-        transform: translateX(50px); /* CHANGED: Fade in from RIGHT */
+        transform: translateX(50px);
         transition: opacity 1.2s ease-out, transform 1.2s ease-out;
       }
 
-      /* Active State for Visual */
       .features-visual.animate-in {
         opacity: 1;
         transform: translateX(0);
@@ -853,19 +822,8 @@
         border: none;
         box-shadow: none;
         border-radius: 0;
-
-        /* NO TILT */
         transform: none;
         transition: transform 0.5s ease;
-      }
-
-      /* Removed hover tilt */
-      .dashboard-console:hover {
-        transform: none;
-      }
-
-      .console-scanlines {
-        display: none;
       }
 
       .dashboard-img {
@@ -903,25 +861,20 @@
         }
       }
 
-      /* Floating HUD over the laptop */
       .console-hud-bar {
         position: absolute;
-        /* Moved HUD UP slightly so it hugs the bottom of the laptop image better */
         bottom: 0;
         left: 50%;
         transform: translateX(-50%);
         width: 90%;
         max-width: 600px;
-
         background: rgba(30, 30, 30, 0.6);
         backdrop-filter: blur(12px);
         -webkit-backdrop-filter: blur(12px);
         border: 1px solid rgba(255, 255, 255, 0.1);
         border-top: 1px solid rgba(39, 174, 96, 0.5);
-
         border-radius: 12px;
         padding: 1.5rem;
-
         display: flex;
         align-items: center;
         justify-content: space-between;
@@ -933,7 +886,6 @@
       .console-hud-text {
         flex: 1;
       }
-
       .console-hud-text h3 {
         color: white;
         font-size: 1rem;
@@ -973,7 +925,6 @@
       .console-hud-action {
         flex-shrink: 0;
       }
-
       .btn-hud {
         background: rgba(39, 174, 96, 0.15);
         color: var(--brand-green-bright);
@@ -997,40 +948,38 @@
         padding: 100px 0;
         background-color: var(--brand-dark);
         overflow: hidden;
+        position: relative;
       }
 
-      /* 3D Scene Wrapper */
       .carousel-scene {
         position: relative;
         max-width: 1200px;
-        margin: 60px auto 0;
-        height: 500px; /* Container height for card display */
+        margin: 40px auto 0;
+        height: 500px;
         display: flex;
         justify-content: center;
         align-items: center;
-        perspective: 1000px; /* Essential for 3D depth */
+        perspective: 1000px;
 
-        /* Initial State for Entrance Animation */
+        /* ENTRANCE ANIMATION: Start position */
         opacity: 0;
-        transform: translateY(50px);
+        transform: translateY(100px);
         transition: all 1s cubic-bezier(0.2, 0.8, 0.2, 1);
       }
 
-      /* Trigger Class for Entrance */
+      /* Trigger for entrance */
       .carousel-scene.animate-entrance {
         opacity: 1;
         transform: translateY(0);
       }
 
-      /* The track that holds the absolute cards */
       .carousel-track {
         position: relative;
-        width: 340px; /* Card Width */
-        height: 480px; /* Card Height */
+        width: 340px; /* Desktop Card Width */
+        height: 480px; /* Desktop Card Height */
         transform-style: preserve-3d;
       }
 
-      /* Navigation Arrows */
       .nav-arrow {
         position: absolute;
         top: 50%;
@@ -1063,16 +1012,50 @@
         right: 20px;
       }
 
+      /* --- MOBILE RESPONSIVENESS FOR CAROUSEL --- */
       @media (max-width: 768px) {
+        .carousel-scene {
+          height: 450px;
+          perspective: 600px; /* Less depth for small screens */
+        }
+        .carousel-track {
+          width: 280px; /* Smaller Card Width */
+          height: 420px; /* Smaller Card Height */
+        }
+        /* ARROW FIXES FOR MOBILE */
+        .nav-arrow {
+          width: 40px; /* Smaller Size */
+          height: 40px; /* Smaller Size */
+          font-size: 1.2rem;
+          background: rgba(0, 0, 0, 0.6); /* Transparent dark BG */
+          border-color: #444;
+          color: var(--brand-green);
+        }
+        /* Disable Hover on Mobile */
+        .nav-arrow:hover {
+          background: rgba(0, 0, 0, 0.6);
+          color: var(--brand-green);
+          box-shadow: none;
+        }
+        /* Active State for Touch Feedback */
+        .nav-arrow:active {
+          background: var(--brand-green);
+          color: #fff;
+        }
+
         .nav-arrow.left {
           left: 10px;
         }
         .nav-arrow.right {
           right: 10px;
         }
+
+        .section-title {
+          font-size: 1.8rem;
+        }
       }
 
-      /* THE CARDS (Reusing your "Snake Border" style) */
+      /* THE CARDS */
       .pricing-card {
         position: absolute;
         width: 100%;
@@ -1091,12 +1074,10 @@
           calc(100% - 15px) 100%,
           0 100%
         );
-        /* Start hidden/inactive */
         opacity: 0;
         pointer-events: none;
       }
 
-      /* Active State (Center) */
       .pricing-card.active {
         opacity: 1;
         pointer-events: auto;
@@ -1105,7 +1086,6 @@
         box-shadow: 0 20px 50px -10px rgba(0, 0, 0, 0.5);
       }
 
-      /* Previous State (Left Side - 3D Tilted) */
       .pricing-card.prev {
         opacity: 0.4;
         z-index: 5;
@@ -1113,7 +1093,6 @@
         filter: blur(2px);
       }
 
-      /* Next State (Right Side - 3D Tilted) */
       .pricing-card.next {
         opacity: 0.4;
         z-index: 5;
@@ -1121,7 +1100,7 @@
         filter: blur(2px);
       }
 
-      /* --- Snake Border & Dot Styles (Same as before) --- */
+      /* Snake Border */
       .pricing-card span.line-1,
       .pricing-card span.line-2,
       .pricing-card span.line-3,
@@ -1158,16 +1137,16 @@
         transition-delay: 0.3s;
       }
 
-      .pricing-card:hover span.line-1 {
+      .pricing-card.active:hover span.line-1 {
         width: 100%;
       }
-      .pricing-card:hover span.line-2 {
+      .pricing-card.active:hover span.line-2 {
         height: 100%;
       }
-      .pricing-card:hover span.line-3 {
+      .pricing-card.active:hover span.line-3 {
         width: 100%;
       }
-      .pricing-card:hover span.line-4 {
+      .pricing-card.active:hover span.line-4 {
         height: 100%;
       }
 
@@ -1193,6 +1172,7 @@
         display: flex;
         align-items: baseline;
         gap: 4px;
+        flex-wrap: wrap;
       }
       .tier-price .currency {
         font-size: 1rem;
@@ -1407,7 +1387,9 @@
           padding-left: 2rem;
           padding-right: 2rem;
         }
+        /* DESKTOP NAV FIX: Restore 60px margin only here */
         .nav-container {
+          margin-left: 60px;
           padding-left: 0;
           padding-right: 2rem;
         }
@@ -1440,7 +1422,6 @@
         }
 
         /* --- HOW IT WORKS UPDATES --- */
-
         .timeline-line-bg,
         .timeline-line-fill,
         .timeline-dot {
@@ -1474,7 +1455,6 @@
         }
 
         /* --- FEATURES SECTION DESKTOP --- */
-
         .features-split-layout {
           flex-direction: row;
           gap: 2rem;
@@ -2054,7 +2034,9 @@
                 ><span class="line-3"></span><span class="line-4"></span>
                 <div class="card-top">
                   <span class="tier-label">Enterprise</span>
-                  <div class="tier-price">Contact Us</div>
+                  <div class="tier-price">
+                    <span class="currency">Contact Us</span>
+                  </div>
                 </div>
                 <div class="card-specs">
                   <div class="spec-row">
