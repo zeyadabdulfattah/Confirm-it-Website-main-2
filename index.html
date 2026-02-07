@@ -834,14 +834,12 @@
       }
 
       /* 3D Effects */
-      .laptop-tilt {
+      .tilt-left-persp {
         transform: perspective(1000px) rotateY(-5deg) rotateX(2deg);
       }
 
-      .tablet-tilt {
+      .tilt-right-persp {
         transform: perspective(1000px) rotateY(5deg) rotateX(2deg);
-        display: flex;
-        justify-content: center;
       }
 
       /* Floating Badge */
@@ -896,7 +894,7 @@
         filter: blur(60px);
       }
 
-      /* --- SHARP PROFESSIONAL CTA (Centered) --- */
+      /* --- CTA Button (Matching Pricing Card) --- */
       .features-cta-wrapper {
         text-align: center;
         margin-top: 4rem;
@@ -904,37 +902,25 @@
         z-index: 2;
       }
 
-      .btn-creative-cta {
-        display: inline-flex;
-        align-items: center;
-        justify-content: center;
-        gap: 12px;
-        background-color: var(--brand-green);
+      /* Exact copy of .btn-activate but inline-block for centering */
+      .btn-feature-match {
+        display: inline-block;
+        padding: 12px 40px; /* Wider padding for standalone button */
+        border: 1px solid #444;
         color: #fff;
-        padding: 1rem 3rem;
+        text-decoration: none;
         font-family: var(--font-nav);
-        font-weight: 600;
+        font-size: 0.9rem;
         text-transform: uppercase;
         letter-spacing: 1px;
-        font-size: 0.95rem;
-        border-radius: 4px; /* Sharp professional radius */
-        transition: all 0.2s ease;
-        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
-        text-decoration: none;
+        transition: 0.2s;
+        background: transparent;
       }
 
-      .btn-creative-cta:hover {
-        background-color: var(--brand-green-bright);
-        transform: translateY(-2px);
-        box-shadow: 0 6px 20px rgba(39, 174, 96, 0.3);
-      }
-
-      .cta-arrow {
-        transition: transform 0.2s ease;
-      }
-
-      .btn-creative-cta:hover .cta-arrow {
-        transform: translateX(4px);
+      .btn-feature-match:hover {
+        background: #fff;
+        color: #000;
+        border-color: #fff;
       }
 
       /* --- 8. NEW 3D CAROUSEL PRICING --- */
@@ -1397,34 +1383,24 @@
         /* Row 1: Text Left (50%), Image Right (50%) */
         .features-row > .features-text-content {
           flex: 1;
-          order: 1;
           padding-top: 5rem;
         }
         .features-row > .features-visual {
           flex: 1;
-          order: 2;
-        }
-
-        /* Row 2: Image Left, Text Right (Manual Override) */
-        .features-row.reverse-mobile > .features-visual {
-          order: 1;
-        }
-        .features-row.reverse-mobile > .features-text-content {
-          order: 2;
         }
 
         .float-card {
           display: block;
         }
 
-        .laptop-tilt:hover {
+        .tilt-left-persp:hover {
           transform: perspective(1000px) rotateY(0deg) scale(1.02);
         }
-        .tablet-tilt:hover {
+        .tilt-right-persp:hover {
           transform: perspective(1000px) rotateY(0deg) scale(1.02);
         }
 
-        /* Footer Grid */
+        /* Footer Grid Restore */
         .footer-grid {
           grid-template-columns: repeat(4, minmax(0, 1fr));
         }
@@ -1567,7 +1543,7 @@
               </div>
               <div class="how-it-works-image-wrapper">
                 <img
-                  src="imgs/Adobe Express - file (1).webp"
+                  src="imgs/Adobe Express - file (1).png"
                   alt="Order Received Dashboard"
                   onerror="this.src='https://placehold.co/300x533/1e1e1e/3a3a3a?text=Step+1+Image'; this.onerror=null;"
                 />
@@ -1595,7 +1571,7 @@
               </div>
               <div class="how-it-works-image-wrapper">
                 <img
-                  src="imgs/Adobe Express - file (2).webp"
+                  src="imgs/Adobe Express - file (2).png"
                   alt="WhatsApp Confirmation Screenshot"
                   onerror="this.src='https://placehold.co/300x533/1e1e1e/3a3a3a?text=Step+2+Image'; this.onerror=null;"
                 />
@@ -1623,7 +1599,7 @@
               </div>
               <div class="how-it-works-image-wrapper">
                 <img
-                  src="imgs/Adobe Express - file (3) copy.webp"
+                  src="imgs/Adobe Express - file (3).png"
                   alt="Customer Confirms Screenshot"
                   onerror="this.src='https://placehold.co/300x533/1e1e1e/3a3a3a?text=Step+3+Image'; this.onerror=null;"
                 />
@@ -1651,7 +1627,7 @@
               </div>
               <div class="how-it-works-image-wrapper">
                 <img
-                  src="imgs/Adobe Express - file (4).webp"
+                  src="imgs/Adobe Express - file (4).png"
                   alt="Courier Integration Dashboard"
                   onerror="this.src='https://placehold.co/300x533/1e1e1e/3a3a3a?text=Step+4+Image'; this.onerror=null;"
                 />
@@ -1710,6 +1686,82 @@
           <div class="features-row">
             <div class="features-text-content">
               <h2>
+                Actionable <br />
+                <span style="color: var(--brand-green)">Data Insights</span>
+              </h2>
+              <p>
+                Turn raw data into actionable growth. Deep-dive into agent
+                performance metrics, confirmation rates, and revenue statistics
+                to optimize your funnel and maximize profitability.
+              </p>
+
+              <div class="features-list">
+                <div class="feature-item">
+                  <svg
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      d="M4.5 12.75l6 6 9-13.5"
+                    />
+                  </svg>
+                  <span>Smart WhatsApp Templates</span>
+                </div>
+                <div class="feature-item">
+                  <svg
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      d="M4.5 12.75l6 6 9-13.5"
+                    />
+                  </svg>
+                  <span>Direct Courier API Integration</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="features-visual visual-right">
+              <div class="dashboard-console tilt-left-persp">
+                <img
+                  class="dashboard-img"
+                  src="imgs/ipad.png"
+                  alt="Analytics Detail"
+                  style="max-width: 100%; margin: 0 auto"
+                  onerror="this.src='https://placehold.co/600x800/1e1e1e/3a3a3a?text=Tablet+Analytics'; this.onerror=null;"
+                />
+                <div class="float-card">
+                  <span>Live Update</span>
+                  <strong>+12% Conv.</strong>
+                </div>
+                <div class="dashboard-glow"></div>
+              </div>
+            </div>
+          </div>
+
+          <div class="features-row reverse-mobile">
+            <div class="features-visual visual-left">
+              <div class="dashboard-console tilt-right-persp">
+                <img
+                  class="dashboard-img"
+                  src="imgs/BBB.png"
+                  alt="Dashboard Overview"
+                  onerror="this.src='https://placehold.co/800x500/1e1e1e/3a3a3a?text=Laptop+Dashboard'; this.onerror=null;"
+                />
+                <div class="dashboard-glow"></div>
+              </div>
+            </div>
+
+            <div class="features-text-content">
+              <h2>
                 All Your Operations in <br />
                 <span style="color: var(--brand-green)">One Single View</span>
               </h2>
@@ -1753,105 +1805,14 @@
                 </div>
               </div>
             </div>
-
-            <div class="features-visual visual-right">
-              <div class="dashboard-console laptop-tilt">
-                <img
-                  class="dashboard-img"
-                  src="imgs/BBB.png"
-                  alt="Dashboard Overview"
-                  onerror="this.src='https://placehold.co/800x500/1e1e1e/3a3a3a?text=Laptop+Dashboard'; this.onerror=null;"
-                />
-                <div class="dashboard-glow"></div>
-              </div>
-            </div>
-          </div>
-
-          <div class="features-row reverse-mobile">
-            <div class="features-visual visual-left">
-              <div class="dashboard-console tablet-tilt">
-                <img
-                  class="dashboard-img"
-                  src="imgs/ipad.png"
-                  alt="Analytics Detail"
-                  style="max-width: 100%; margin: 0 auto"
-                  onerror="this.src='https://placehold.co/600x800/1e1e1e/3a3a3a?text=Tablet+Analytics'; this.onerror=null;"
-                />
-                <div class="float-card">
-                  <span>Live Update</span>
-                  <strong>+12% Conv.</strong>
-                </div>
-                <div class="dashboard-glow"></div>
-              </div>
-            </div>
-
-            <div class="features-text-content">
-              <h2>
-                Actionable <br />
-                <span style="color: var(--brand-green)">Data Insights</span>
-              </h2>
-              <p>
-                Turn raw data into actionable growth. Deep-dive into agent
-                performance metrics, confirmation rates, and revenue statistics
-                to optimize your funnel and maximize profitability.
-              </p>
-
-              <div class="features-list">
-                <div class="feature-item">
-                  <svg
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    stroke-width="2"
-                  >
-                    <path
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                      d="M4.5 12.75l6 6 9-13.5"
-                    />
-                  </svg>
-                  <span>Smart WhatsApp Templates</span>
-                </div>
-                <div class="feature-item">
-                  <svg
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    stroke-width="2"
-                  >
-                    <path
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                      d="M4.5 12.75l6 6 9-13.5"
-                    />
-                  </svg>
-                  <span>Direct Courier API Integration</span>
-                </div>
-              </div>
-            </div>
           </div>
 
           <div class="features-cta-wrapper">
             <a
               href="checkout.html?plan=starter&price=500"
-              class="btn-creative-cta"
+              class="btn-feature-match"
             >
               Explore Dashboard
-              <svg
-                class="cta-arrow"
-                width="16"
-                height="16"
-                viewBox="0 0 16 16"
-                fill="none"
-                stroke="currentColor"
-                stroke-width="2"
-              >
-                <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  d="M3.33334 8H12.6667M12.6667 8L8.00001 3.33334M12.6667 8L8.00001 12.6667"
-                />
-              </svg>
             </a>
           </div>
         </div>
